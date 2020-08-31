@@ -18,8 +18,19 @@ void swap(vector<int> &nums, int a, int b)
 
 void ThreeDimension_Partition(vector<int> &nums, int left, int right)
 {
+    //长度短时采用选择排序
     if (left >= right)
         return;
+    if (right - left < 6)
+    {
+        int minIndex;
+        for (int cnt = left; cnt < right; cnt++)
+        {
+            for (int inner = cnt + 1, minIndex = cnt; inner < right; inner++)
+                minIndex = nums[inner] < nums[minIndex] ? inner : minIndex;
+            swap(nums, minIndex, cnt);
+        }
+    }
     int l = left, m = left + 1, r = right, pivot = left + (right - left >> 1), pivotNum = nums[pivot];
     swap(nums, l, pivot);
     while (m <= r)
